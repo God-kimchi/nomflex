@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const Header = styled.header`
 	color: white;
 	position: fixed;
+	z-index:10;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -29,12 +30,19 @@ const Item = styled.li`
 	/* &:not(:last-child) {
 		margin-right: 10px;
 	} */
+	&:hover{
+		border-bottom: 3px solid #eb4d4b;
+	}
 `;
 const SLink = styled(Link)`
 	height: 50px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	transition: all 0.1s linear;
+	&:hover{
+		font-size: 14px;
+	}
 `;
 
 export default withRouter(({ location: { pathname } }) => (
@@ -48,7 +56,7 @@ export default withRouter(({ location: { pathname } }) => (
 				<SLink to="/tv">TV</SLink>
 			</Item>
 			<Item current={pathname === '/search'}>
-				<SLink to="/search">search</SLink>
+				<SLink to="/search">Search</SLink>
 			</Item>
 		</List>
 	</Header>

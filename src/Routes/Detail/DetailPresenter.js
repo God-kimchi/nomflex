@@ -78,7 +78,9 @@ const ItemIMDB = styled.button`
   cursor: pointer;
   background-color: #e8b708;
 `;
-const A = styled.a``;
+const A = styled.a`
+  margin-bottom: 30px;
+`;
 
 const Divider = styled.span`
   margin: 0 10px;
@@ -107,6 +109,7 @@ const ItemBox = styled.div`
   display: flex;
   padding-left: 15px;
   font-size: 14px;
+  overflow: hidden;
 `;
 const ItemBox2 = styled.div`
   width: 100%;
@@ -181,9 +184,9 @@ const DetailPresenter = ({ result, loading, error }) =>
                   : `${genre.name}   / `,
               )}
             <Divider>•</Divider>
-            <A href={`https://www.imdb.com/title/${result.imdb_id}`}>
+            {result.imdb_id && <A href={`https://www.imdb.com/title/${result.imdb_id}`}>
               <ItemIMDB>IMDB</ItemIMDB>
-            </A>
+            </A>}
           </ItemContainer>
           <Overview>{result.overview}</Overview>
           {result.production_companies && (
@@ -241,8 +244,22 @@ const DetailPresenter = ({ result, loading, error }) =>
                   result.videos.results.map(
                     (item, index) =>
                       item.key && (
-                        <A href={`https://www.youtube.com/watch?v=${item.key}`}>
+                        <A
+                          href={`https://www.youtube.com/watch?v=${item.key}`}
+                          key={index}
+                        >
                           <Item2>{item.name}</Item2>
+                          <iframe
+                            id="ytplayer"
+                            type="text/html"
+                            width="500"
+                            height="282"
+                            src={`https://www.youtube.com/embed/${item.key}`}
+                            frameborder="0"
+                            allowfullscreen
+                            title={item.name}
+                            style={{borderRadius:"15px", backgroundColor:"rgba(20,20,20,1)"}}
+                          ></iframe>
                         </A>
                       ),
                   )}
